@@ -132,7 +132,6 @@ new Vue(
   },
   created: function ()
   {
-
     this.coveredTiles = (this.rows * this.columns) - this.hearts;
     this.heartsLeft = this.hearts;
     for (let i = 0; i < this.rows * this.columns; i++)
@@ -150,11 +149,6 @@ new Vue(
       });
     }
   },
-  beforeDestroy: function ()
-  {
-    clearTimeout(this.timerID);
-
-  },
   methods:
   {
     openModal: function (menuType, extraData)
@@ -169,8 +163,9 @@ new Vue(
     },
     updateDifficulty: function (difficulty)
     {
-      this.difficulty = difficulty;
       this.showModal = false;
+      this.difficulty = difficulty;
+      
     },
     leftClick: function (tile)
     {
@@ -390,14 +385,6 @@ new Vue(
 
       return neighborArray;
     },
-    getLeftNeighbor: function (start, sub)
-    {
-      return start - sub;
-    },
-    getRightNeighbor: function (start, add)
-    {
-      return start + add;
-    },
     isCovered: function (tile)
     {
       switch (tile.state)
@@ -486,19 +473,10 @@ new Vue(
     startNewGame: function ()
     {
       this.showModal = false;
-      for (let i = 0, j =this.board.length; i < j; i++)
-      {
-        this.board[i].state= "hidden";
-      }
-      this.board = [];
-      clearTimeout(this.timerID);
-      this.gameStarted = false;
-      this.heartLocations = 0;
-      this.coveredTiles = 0;
-      this.heartsLeft = 0;
+
       this.clockTime = 0;
       this.gameStart = new Date();
-      this.timerID = 0;
+      this.gameStarted = false;
       this.gameEnded = false;
       if (this.difficulty == "easy")
       {
@@ -522,15 +500,17 @@ new Vue(
         this.coveredTiles = 381;
       }
 
+      this.heartLocations = 0;
       this.heartsLeft = this.hearts;
+      let newBoard = [];
       for (let i = 0, j = this.rows * this.columns; i < j; i++)
       {
-        this.board.push(
+        newBoard.push(
         {
           id: i,
           isHeart: false,
           heartsNearby: 0,
-          flagsNearby: 0,
+          flagsNearby: 0,          
           endOfRow: ((i % this.columns) == 0),
           state: "hidden",
           wrong: false,
@@ -538,7 +518,12 @@ new Vue(
         });
 
       }
-
+      this.board= newBoard;
+      if(! this.timerID===0){
+        clearTimeout(timerID);
+      }
+  
+      
     }
   },
   template: `<div> 
@@ -582,7 +567,8 @@ new Vue(
                           <div class="time"><img class="clockImg" src="images/clock.png"><div class="time-counter">{{clockTimeDisplay()}}</div></div>  
                           <div class="hearts "><div class="heart-counter">{{heartCountDisplay()}}</div><img class="heartImg" src="images/hearts.png"></div>
                         </div>
-                      </div>                    
+                      </div>         
+                   
                     </div>`
 });
 
@@ -625,3 +611,4 @@ function preloadImages(){
   img17.src = "images/wrong.png";
   img18.src = "images/x.png";
 }
+
