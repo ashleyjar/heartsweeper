@@ -215,3 +215,19 @@ body {
 	-webkit-transform: scale(1.1);
 	transform: scale(1.1);
 }
+#footer {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    width: 125px;
+    font-family: 'Assistant',sans-serif;
+    background-color: white;
+    text-align: right;
+    padding-right: 10px;
+    border: 2px solid #ff6ead;
+    background: linear-gradient(#f5fffa,#fff,#fff);
+    font-family: 'Assistant',sans-serif;
+    font-size: 16px;
+    padding-left: 5px;
+    border-radius: 5px;
+}
