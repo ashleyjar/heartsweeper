@@ -62,7 +62,7 @@ Vue.component('settings-menu',
   </p>
   <p class="modal-footer">
   <button class="modal-default-button" @click="$emit('close')">Cancel</button>
-  <button class="modal-default-button" @click="$emit('save', difficulty)">Save</button>
+  <button class="modal-default-button" @click="$emit('save', difficulty);$emit('play')">Save</button>
                    </p>     
                         </div>`
 });
