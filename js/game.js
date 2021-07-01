@@ -50,7 +50,7 @@ Vue.component('settings-menu',
     this.difficulty = this.level;
   },
   template: `<div>
-  <h3>Change Level for Next Game</h3>
+  <h3>Change Difficulty and Start New Game</h3>
  
  <p>
  <input name="diff" type="radio" id="easy" value="easy" v-model="difficulty" class="modal-input">
@@ -62,7 +62,7 @@ Vue.component('settings-menu',
   </p>
   <p class="modal-footer">
   <button class="modal-default-button" @click="$emit('close')">Cancel</button>
-  <button class="modal-default-button" @click="$emit('save', difficulty);$emit('play')">Save</button>
+  <button class="modal-default-button" @click="$emit('save', difficulty)">Ok</button>
                    </p>     
                         </div>`
 });
@@ -165,7 +165,7 @@ new Vue(
     {
       this.showModal = false;
       this.difficulty = difficulty;
-      
+      this.startNewGame();
     },
     leftClick: function (tile)
     {
